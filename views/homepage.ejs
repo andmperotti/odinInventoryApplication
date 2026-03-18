@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Inventory:</h1>
+    <h2>Categories:</h2>
+    <% if(categories.rows.length>0){%>
+        <ul>
+            <% categories.rows.forEach((row)=>{ %>
+                <li>
+                    <a href="/category/<%=row.id%>"><%=row.name%></a>
+                </li>
+            <% }) %>
+        </ul>
+    <%}%>
+  </body>
+</html>
