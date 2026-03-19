@@ -15,6 +15,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/", indexRouter);
 app.use("/category", categoryRouter);
-app.use("/category/:categoryId/items", itemRouter);
+app.use("/items", itemRouter);
 
 app.listen(3002);
