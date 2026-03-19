@@ -8,8 +8,13 @@ async function getCategories() {
 
 //get items of a specific category
 async function getItems(id) {
-  let items = await pool.query("SELECT * FROM items WHERE categoryid=id");
+  let items = await pool.query(`SELECT * FROM items WHERE categoryId=${id}`);
   return items;
 }
 
-module.exports = { getCategories, getItems };
+async function getItem(itemId) {
+  let item = await pool.query(`SELECT * FROM items WHERE id=${itemId}`);
+  return item;
+}
+
+module.exports = { getCategories, getItems, getItem };
