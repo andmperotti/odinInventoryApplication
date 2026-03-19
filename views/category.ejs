@@ -7,17 +7,12 @@
   </head>
   <body>
     <h1>Inventory</h1>
-    <h2><%=category%></h2>
+    <h2><%=categoryName%></h2>
     <%if(items.rows.length>0){%>
         <ul>
             <%items.rows.forEach(item=>{%>
-                <li><%=item.name%>
-                        <label>Quantity
-                            <input value="<%=item.quantity%>">
-                        </label>
-                        <label>Price
-                            <input value="<%=item.price%>">
-                        </label>
+                <li>
+                    <a href="/items/<%=item.id%>?category=<%=categoryName%>"><%=item.name%></a>
                 </li>
             <%})%>
         </ul>
