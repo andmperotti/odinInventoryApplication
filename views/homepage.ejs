@@ -12,7 +12,7 @@
         <ul>
             <% categories.rows.forEach((row)=>{ %>
                 <li>
-                    <a href="/category/<%=row.id%>"><%=row.name%></a>
+                    <a href="/category/<%=row.id%>?category=<%=row.name%>"><%=row.name%></a>
                 </li>
             <% }) %>
         </ul>
