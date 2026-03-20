@@ -9,7 +9,8 @@ const { itemRouter } = require("./routes/itemRouter");
 //set the view engine and define the views location
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
-
+//middleware that allows us to pass local files
+app.use(express.static("public"));
 //middleware to parse form input entry data into the request
 app.use(express.urlencoded({ extended: true }));
 
