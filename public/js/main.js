@@ -1,4 +1,4 @@
-async function confirmationModal(context, categoryTF) {
+async function confirmationModal(context) {
   let modalActive = false;
   if (!modalActive) {
     modalActive = true;
@@ -9,9 +9,7 @@ async function confirmationModal(context, categoryTF) {
     popup.appendChild(heading);
     let disclaimer = document.createElement("p");
     disclaimer.textContent = `Are you sure you want to delete ${context}`;
-    if (categoryTF === true) {
-      disclaimer.textContent += ", and all of its items";
-    }
+
     popup.appendChild(disclaimer);
     let decisionButtons = document.createElement("div");
     let confirmButton = document.createElement("button");
@@ -39,5 +37,26 @@ async function confirmationModal(context, categoryTF) {
     popup.style.border = "1px solid black";
     popup.style.backgroundColor = "grey";
     popup.style.padding = "1%";
+  }
+}
+
+async function deleteItem(itemId, context) {
+  let result = confirmationModal(context);
+  if (result === true) {
+    console.log("to be deleted");
+    //call db query
+  } else {
+    console.log("cancelled action");
+  }
+}
+
+async function deleteCategory(categoryId, context) {
+  let result = confirmationModal(context);
+  if (result === true) {
+    console.log("to be deleted");
+    //call db query
+    location.assign();
+  } else {
+    console.log("cancelled action");
   }
 }
