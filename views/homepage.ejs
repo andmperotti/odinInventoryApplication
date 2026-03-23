@@ -12,12 +12,15 @@
         <ul>
             <% categories.rows.forEach((row)=>{ %>
                 <li style="list-style: none;">
-                    <a href="/category/<%=row.id%>?category=<%=row.name%>"><%=row.name%></a>
+                    <a href="/category/<%=row.id%>"><%=row.name%></a>
                 </li>
             <% }) %>
         </ul>
     <%}else{%>
         <p>No categories in the database exist currently.</p>
     <%}%>
+    <button>Add category</button>
+    
+    <script src="../js/main.js"></script>
   </body>
 </html>

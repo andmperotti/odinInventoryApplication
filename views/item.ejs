@@ -8,8 +8,6 @@
   <body>
     <h1>Inventory</h1>
     <button>Homepage</button>
-    <button><%=categoryName%> category</button>
-
     <h2><%=item.rows[0].name%>:</h2>
     <label
       >Quantity
@@ -20,8 +18,13 @@
       <input value="<%=item.rows[0].price%>" />
     </label>
     <button>Update</button>
-    <button style="background-color: red; display: block; margin-top: 1%">
-      DELETE
+    <button
+      style="background-color: red; display: block; margin-top: 1%"
+      onclick="deleteItem('<%=item.rows[0].name%>', false)"
+    >
+      DELETE ITEM
     </button>
+
+    <script src="../js/main.js"></script>
   </body>
 </html>
