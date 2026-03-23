@@ -4,9 +4,8 @@ const categoryController = require("../controllers/categoryController");
 
 categoryRouter.get("/:categoryId", async (req, res) => {
   let categoryId = req.params.categoryId;
-  let items = await categoryController.getCategoryItems(categoryId);
-  let categoryName = req.query.category;
-  res.render("category", { items, categoryName });
+  let categoryReturn = await categoryController.getCategoryItems(categoryId);
+  res.render("category", { ...categoryReturn });
 });
 
 module.exports = { categoryRouter };
