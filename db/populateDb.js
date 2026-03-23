@@ -12,9 +12,9 @@ CREATE TABLE IF NOT EXISTS public.categories (
 INSERT INTO categories (name) VALUES ('shorts');
 
 CREATE TABLE IF NOT EXISTS public.items (
-id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY, name TEXT, quantity INTEGER, price INTEGER, categoryID INTEGER);
+id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY, name TEXT, quantity INTEGER, price INTEGER, categoryIds TEXT);
 
-INSERT INTO items (name, quantity, price, categoryID) VALUES ('wubby', 8, 100, 1);
+INSERT INTO items (name, quantity, price, categoryIds) VALUES ('wubby', 8, 100, '[1]');
 `;
 
 async function main() {
