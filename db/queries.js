@@ -6,9 +6,26 @@ async function getCategories() {
   return categories;
 }
 
+async function getCategoryName(categoryId) {
+  let category = await pool.query(
+    `SELECT * FROM categories WHERE categories.id = ${categoryId}`,
+  );
+  return category.rows[0].name;
+}
+
+async function deleteCategory(categoryId) {
+  let deleteAttempt = await pool.query(
+    `DELETE * FROM categories WHERE categories.id = ${categoryId}`,
+  );
+  //if successful return true?
+  //otherwise return false?
+}
+
 //get items of a specific category
-async function getItems(id) {
-  let items = await pool.query(`SELECT * FROM items WHERE categoryId=${id}`);
+async function getCategoryItems(categoryId) {
+  let items = await pool.query(
+    `SELECT * FROM items WHERE items.categoryIds LIKE '%${categoryId}%'`,
+  );
   return items;
 }
 
@@ -17,4 +34,31 @@ async function getItem(itemId) {
   return item;
 }
 
-module.exports = { getCategories, getItems, getItem };
+async function deleteItem(itemId) {
+  let sql = `SELECT id FROM items WHERE items.id = ${itemId}`;
+  await pool.query(sql);
+}
+
+async function updatedItem(
+  itemId,
+  newName,
+  newQuantity,
+  newPrice,
+  newCategoryIds,
+) {
+  let updatedItem = await pool.query(`
+    UPDATE items
+     SET name=${newName}, price=${newPrice}, quantity=${newQuantity}, categoryIds=${newCategoryIds}
+     WHERE items.id=${itemId}
+     `);
+}
+
+module.exports = {
+  getCategories,
+  getCategoryName,
+  deleteCategory,
+  getCategoryItems,
+  getItem,
+  deleteItem,
+  updatedItem,
+};
