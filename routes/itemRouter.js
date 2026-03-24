@@ -4,7 +4,8 @@ let itemController = require("../controllers/itemController");
 
 itemRouter.get("/:itemId", async (req, res) => {
   let item = await itemController.getItem(req.params.itemId);
-  res.render("item", { item });
+  let categories = await itemController.getCategories();
+  res.render("item", { item, categories });
 });
 
 itemRouter.delete("/:itemId", async (req, res) => {
