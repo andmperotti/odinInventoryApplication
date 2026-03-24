@@ -1,9 +1,9 @@
 const { Router } = require("express");
 const itemRouter = Router();
-const dbQueries = require("../db/queries");
+let itemController = require("../controllers/itemController");
 
 itemRouter.get("/:itemId", async (req, res) => {
-  let item = await dbQueries.getItem(req.params.itemId);
+  let item = await itemController.getItem(req.params.itemId);
   res.render("item", { item });
 });
 
