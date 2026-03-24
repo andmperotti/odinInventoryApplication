@@ -8,9 +8,9 @@
   <body>
     <h1>Inventory</h1>
     <a href="/">Homepage</a>
-    <h2><%=categoryName%>:</h2>
+    <h2><em><%=categoryName%></em> Category:</h2>
     <%if(items.rows.length>0){%>
-        <ul>
+        <ul><h3>Items:</h3>
             <%items.rows.forEach(item=>{%>
                 <li style="list-style: none;">
                     <a href="/items/<%=item.id%>"><%=item.name%></a>
