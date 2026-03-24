@@ -7,7 +7,7 @@
   </head>
   <body>
     <h1>Inventory</h1>
-    <button>Homepage</button>
+    <a href="/">Homepage</a>
     <h2><%=categoryName%>:</h2>
     <%if(items.rows.length>0){%>
         <ul>
@@ -20,7 +20,8 @@
     <%}else{%>
         <p>No items in category</p>
     <%}%>
-    <button style="background-color: red; display: block">Delete category</button>
+    <button>Add item</button>
+    <button style="background-color: red; display: block; margin-top: 10%;">Delete category</button>
 
     <script src="../js/main.js"></script>
   </body>
