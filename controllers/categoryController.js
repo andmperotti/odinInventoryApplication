@@ -10,4 +10,9 @@ async function getCategoryItems(categoryId) {
 
 // }
 
-module.exports = { getCategoryItems };
+async function getCategories() {
+  let categories = await dbQueries.getCategories();
+  return categories;
+}
+
+module.exports = { getCategoryItems, getCategories };

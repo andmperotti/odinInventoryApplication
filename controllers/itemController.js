@@ -16,4 +16,10 @@ async function getItem(itemId) {
   let item = await dbQueries.getItem(itemId);
   return item;
 }
-module.exports = { getItem };
+
+async function getCategories(){
+  let categories = await dbQueries.getCategories()
+  return categories
+}
+
+module.exports = { getItem, getCategories };
