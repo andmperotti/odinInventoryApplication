@@ -7,21 +7,30 @@
   </head>
   <body>
     <h1>Inventory</h1>
-    <button>Homepage</button>
+    <a href="/">Homepage</a>
     <h2><%=item.rows[0].name%>:</h2>
-    <label
-      >Quantity
+    <label style="display: block">
+      Quantity
       <input value="<%=item.rows[0].quantity%>" />
     </label>
-    <label
-      >Price
+    <label style="display: block">
+      Price
       <input value="<%=item.rows[0].price%>" />
     </label>
-    <button>Update</button>
+    <label
+      >Categories:
+      <select name="categories" id="category-select" multiple>
+        <% categories.rows.forEach(category=>{ %>
+          <option data-catId="<%=category.id%>" 
+            <%=item.rows[0].categoryids.includes(category.id)? 'selected' : ''%> >
+            <%=category.name%></option>
+        <%})%>
+      </select>
+      <span style="display: block;">To select multiple categories hold command(mac), or control(windows) while clicking categories for the item</span>
+    </label>
+    <button style="display: block; margin-top: 1%">Update</button>
     <button
-      style="background-color: red; display: block; margin-top: 1%"
-      onclick="deleteItem('<%=item.rows[0].name%>', false)"
-    >
+      style="background-color: red; display: block; margin-top: 10%">
       DELETE ITEM
     </button>
 
