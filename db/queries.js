@@ -46,11 +46,13 @@ async function updatedItem(
   newPrice,
   newCategoryIds,
 ) {
-  let updatedItem = await pool.query(`
-    UPDATE items
-     SET name=${newName}, price=${newPrice}, quantity=${newQuantity}, categoryIds=${newCategoryIds}
-     WHERE items.id=${itemId}
-     `);
+  let values = [...arguments];
+  let updatedItem = await pool.query(
+    `
+    UPDATE items SET name=$2, price=$4, quantity=$3, categoryIds=$5 WHERE id=$1
+     `,
+    values,
+  );
 }
 
 module.exports = {
