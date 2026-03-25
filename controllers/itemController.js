@@ -17,9 +17,25 @@ async function getItem(itemId) {
   return item;
 }
 
-async function getCategories(){
-  let categories = await dbQueries.getCategories()
-  return categories
+async function getCategories() {
+  let categories = await dbQueries.getCategories();
+  return categories;
 }
 
-module.exports = { getItem, getCategories };
+async function updateItem(
+  itemId,
+  newName,
+  newQuantity,
+  newPrice,
+  newCategoryIds,
+) {
+  let updateResult = await dbQueries.updatedItem(
+    itemId,
+    newName,
+    newQuantity,
+    newPrice,
+    newCategoryIds,
+  );
+}
+
+module.exports = { getItem, getCategories, updateItem };
