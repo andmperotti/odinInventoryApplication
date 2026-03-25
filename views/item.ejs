@@ -9,26 +9,31 @@
     <h1>Inventory</h1>
     <a href="/">Homepage</a>
     <h2><%=item.rows[0].name%>:</h2>
+    <form action="/items/updateItem/<%=item.rows[0].id%>" method="post">
+      <label>Name: <input value="<%=item.rows[0].name%>" name="itemName" required minlength="1"></label>
     <label style="display: block">
       Quantity
-      <input value="<%=item.rows[0].quantity%>" />
+      <input value="<%=item.rows[0].quantity%>" type="number" min="0" required name="itemQuantity"/>
     </label>
     <label style="display: block">
       Price
-      <input value="<%=item.rows[0].price%>" />
+      <input value="<%=item.rows[0].price%>" required type="number" min="1" name="itemPrice"/>
     </label>
     <label
       >Categories:
-      <select name="categories" id="category-select" multiple>
-        <% categories.rows.forEach(category=>{ %>
-          <option data-catId="<%=category.id%>" 
+      <select name="itemCategoryIds" id="category-select" multiple required >
+        <%categories.rows.forEach(category=>{ %>
+          <option 
+            value="<%=category.id%>"
             <%=item.rows[0].categoryids.includes(category.id)? 'selected' : ''%> >
-            <%=category.name%></option>
+            <%=category.name%>
+          </option>
         <%})%>
       </select>
       <span style="display: block;">To select multiple categories hold command(mac), or control(windows) while clicking categories for the item</span>
     </label>
     <button style="display: block; margin-top: 1%">Update</button>
+    </form>
     <button
       style="background-color: red; display: block; margin-top: 10%">
       DELETE ITEM
