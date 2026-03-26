@@ -8,16 +8,16 @@
   <body>
     <h1>Inventory</h1>
     <a href="/">Homepage</a>
-    <h2><%=item.rows[0].name%>:</h2>
-    <form action="/items/updateItem/<%=item.rows[0].id%>" method="post">
-      <label>Name: <input value="<%=item.rows[0].name%>" name="itemName" required minlength="1"></label>
+    <h2><%=item.name%>:</h2>
+    <form action="/items/updateItem/<%=item.id%>" method="post">
+      <label>Name: <input value="<%=item.name%>" name="itemName" required minlength="1"></label>
     <label style="display: block">
       Quantity
-      <input value="<%=item.rows[0].quantity%>" type="number" min="0" required name="itemQuantity"/>
+      <input value="<%=item.quantity%>" type="number" min="0" required name="itemQuantity"/>
     </label>
     <label style="display: block">
       Price
-      <input value="<%=item.rows[0].price%>" required type="number" min="1" name="itemPrice"/>
+      <input value="<%=item.price%>" required type="number" min="1" name="itemPrice"/>
     </label>
     <label
       >Categories:
@@ -25,7 +25,7 @@
         <%categories.rows.forEach(category=>{ %>
           <option 
             value="<%=category.id%>"
-            <%=item.rows[0].categoryids.includes(category.id)? 'selected' : ''%> >
+            <%=item.categoryids.includes(category.id)? 'selected' : ''%> >
             <%=category.name%>
           </option>
         <%})%>
