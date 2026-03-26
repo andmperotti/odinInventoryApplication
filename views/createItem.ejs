@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Inventory</h1>
+    <a href="/">Homepage</a>
+    <h2>New Item</h2>
+    <form action="/items/createItem%>" method="post">
+      <label>Name: <input name="itemName" required minlength="1"></label>
+    <label style="display: block">
+      Quantity
+      <input type="number" min="0" required name="itemQuantity" value="1"/>
+    </label>
+    <label style="display: block">
+      Price
+      <input required type="number" min="1" name="itemPrice" value="1"/>
+    </label>
+    <label
+      >Categories:
+      <select name="itemCategoryIds" id="category-select" multiple required >
+        <%categories.rows.forEach(category=>{ %>
+          <option value="<%=category.id%>">
+            <%=category.name%>
+          </option>
+        <%})%>
+      </select>
+      <span style="display: block;">To select multiple categories hold command(mac), or control(windows) while clicking categories for the item</span>
+    </label>
+    <button style="display: block; margin-top: 1%">Create Item</button>
+    </form>
+    
+    <button
+      style="background-color: red; display: block; margin-top: 10%">
+      DELETE ITEM
+    </button>
+
+    <script src="../js/main.js"></script>
+  </body>
+</html>
