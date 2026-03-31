@@ -6,11 +6,15 @@ const dbQueries = require("../db/queries");
 //   res.render("items", { items, categoryId, categoryName });
 // }
 
-// async function createItem(name, quantity, price, categoryIds) {
-//   //attempt item creation
-//   //if successful respond with new item view
-//   //otherwise respond with a statement on why it wasn't made
-// }
+async function createItem(name, quantity, price, categoryIds) {
+  //attempt item creation
+  let creationResult = dbQueries.createItem(name, quantity, price, categoryIds);
+  //if successful respond with new item view
+  //look for record with this new item name
+  //otherwise respond with a statement on why it wasn't made, like an item with that name already exists, and disallow it
+  //temporary render
+  return creationResult;
+}
 
 async function getItem(itemId) {
   let item = await dbQueries.getItem(itemId);
@@ -38,4 +42,4 @@ async function updateItem(
   );
 }
 
-module.exports = { getItem, getCategories, updateItem };
+module.exports = { getItem, getCategories, updateItem, createItem };
