@@ -30,13 +30,24 @@ async function getCategoryItems(categoryId) {
 }
 
 async function getItem(itemId) {
-  let item = await pool.query(`SELECT * FROM items WHERE id=${itemId}`);
-  return item;
+  let values = [itemId];
+  let item = await pool.query(`SELECT * FROM items WHERE id=$1`, values);
+  return item.rows[0];
+}
+
+async function getItemId(itemName) {
+  let values = [itemName];
+  let itemId = await pool.query(`SELECT id FROM items WHERE name=$1`, values);
+  return itemId;
 }
 
 async function deleteItem(itemId) {
-  let sql = `SELECT id FROM items WHERE items.id = ${itemId}`;
-  await pool.query(sql);
+  let values = [itemId];
+  let deleteResult = await pool.query(
+    `DELETE FROM items WHERE items.id = $1`,
+    values,
+  );
+  return deleteResult;
 }
 
 async function updatedItem(
@@ -55,6 +66,20 @@ async function updatedItem(
   );
 }
 
+async function createItem(name, quantity, price, categoryIds) {
+  //check if a record already exists (using the name value)
+  //
+  //if it does not already exist create it:
+  let values = [name, quantity, price, categoryIds];
+  let creationResult = await pool.query(
+    "INSERT INTO items (name, quantity, price, categoryids) VALUES ($1, $2, $3, $4)",
+    values,
+  );
+  //obtain the id value so we can redirect the user to the item page upon completion of creation
+  creationResult.itemId = await getItemId(name);
+  return creationResult;
+}
+
 module.exports = {
   getCategories,
   getCategoryName,
@@ -63,4 +88,5 @@ module.exports = {
   getItem,
   deleteItem,
   updatedItem,
+  createItem,
 };
