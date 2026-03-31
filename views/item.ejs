@@ -21,16 +21,16 @@
     </label>
     <label
       >Categories:
-      <select name="itemCategoryIds" id="category-select" multiple required >
+      <select name="itemCategoryIds" id="category-select" multiple  >
         <%categories.rows.forEach(category=>{ %>
           <option 
             value="<%=category.id%>"
-            <%=item.categoryids.includes(category.id)? 'selected' : ''%> >
+            <%=item.categoryids? item.categoryids.includes(category.id)? 'selected' : '' : ''%> >
             <%=category.name%>
           </option>
         <%})%>
       </select>
-      <span style="display: block;">To select multiple categories hold command(mac), or control(windows) while clicking categories for the item</span>
+      <span style="display: block;">To select multiple categories hold command(mac), or control(windows) while clicking categories for the item. To unselect a category hold the same key and click on the category you'd like to remove.</span>
     </label>
     <button style="display: block; margin-top: 1%">Update</button>
     </form>
