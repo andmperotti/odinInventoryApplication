@@ -41,6 +41,11 @@ async function getItemId(itemName) {
   return itemId;
 }
 
+async function getAllItems() {
+  let items = await pool.query("SELECT * FROM items");
+  return items;
+}
+
 async function deleteItem(itemId) {
   let values = [itemId];
   let deleteResult = await pool.query(
@@ -86,6 +91,7 @@ module.exports = {
   deleteCategory,
   getCategoryItems,
   getItem,
+  getAllItems,
   deleteItem,
   updatedItem,
   createItem,
