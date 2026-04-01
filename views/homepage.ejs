@@ -20,19 +20,7 @@
         <p>No categories in the database exist currently.</p>
     <%}%>
     <form style="display: block;"><button>Add category</button></form>
-    <h2>Items:</h2>
-    <% if(items.rows.length>0){%>
-        <ul>
-            <% items.rows.forEach((row)=>{ %>
-                <li style="list-style: none;">
-                    <a href="/items/<%=row.id%>"><%=row.name%></a>
-                </li>
-            <% }) %>
-        </ul>
-    <%}else{%>
-        <p>No categories in the database exist currently.</p>
-    <%}%>
-    <form style="display: block;" method="get" action="/items/createItem"><button style="display: block;">Add item</button></form>
+   
     
     <script src="../js/main.js"></script>
   </body>

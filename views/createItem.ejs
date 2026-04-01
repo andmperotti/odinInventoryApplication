@@ -21,7 +21,7 @@
     </label>
     <label
       >Categories:
-      <select name="itemCategoryIds" id="category-select" multiple  >
+      <select name="itemCategoryIds" id="category-select" multiple required >
         <%categories.rows.forEach(category=>{ %>
           <option value="<%=category.id%>">
             <%=category.name%>
