@@ -6,13 +6,17 @@ async function getCategoryItems(categoryId) {
   return { items, categoryName };
 }
 
-// async function createCategory(){
-
-// }
-
 async function getCategories() {
   let categories = await dbQueries.getCategories();
   return categories;
 }
+
+// async function createCategory(){
+
+// }
+
+// async function deleteCategory(categoryID){
+
+// }
 
 module.exports = { getCategoryItems, getCategories };
