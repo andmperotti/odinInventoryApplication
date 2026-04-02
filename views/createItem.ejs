@@ -21,14 +21,14 @@
     </label>
     <label
       >Categories:
-      <select name="itemCategoryIds" id="category-select" multiple required >
+      <select name="itemCategoryIds" id="category-select"  required >
         <%categories.rows.forEach(category=>{ %>
           <option value="<%=category.id%>">
             <%=category.name%>
           </option>
         <%})%>
       </select>
-      <span style="display: block;">To select multiple categories hold command(mac), or control(windows) while clicking categories for the item</span>
+
     </label>
     <button style="display: block; margin-top: 1%">Create Item</button>
     </form>
