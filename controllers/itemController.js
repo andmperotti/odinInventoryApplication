@@ -1,18 +1,7 @@
 const dbQueries = require("../db/queries");
 
-// async function getItems(categoryId) {
-//   let items = await dbQueries.getItems(categoryId);
-//   let categoryName = dbQueries.getCategoryName(categoryId);
-//   res.render("items", { items, categoryId, categoryName });
-// }
-
-async function createItem(name, quantity, price, categoryIds) {
-  //attempt item creation
-  let creationResult = dbQueries.createItem(name, quantity, price, categoryIds);
-  //if successful respond with new item view
-  //look for record with this new item name
-  //otherwise respond with a statement on why it wasn't made, like an item with that name already exists, and disallow it
-  //temporary render
+async function createItem(name, quantity, price, categoryId) {
+  let creationResult = dbQueries.createItem(name, quantity, price, categoryId);
   return creationResult;
 }
 
@@ -31,14 +20,14 @@ async function updateItem(
   newName,
   newQuantity,
   newPrice,
-  newCategoryIds,
+  newCategoryId,
 ) {
   let updateResult = await dbQueries.updatedItem(
     itemId,
     newName,
     newQuantity,
     newPrice,
-    newCategoryIds,
+    newCategoryId,
   );
 }
 
