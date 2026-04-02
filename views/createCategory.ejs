@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Inventory</h1>
+    <a href="/">Homepage</a>
+    <h2>New Category</h2>
+    <form action="/category/create%>" method="post">
+      <label>Name: <input name="categoryName" required minlength="1" /></label>
+      <button style="display: block; margin-top: 1%">Create Category</button>
+    </form>
+    <button style="background-color: red; display: block; margin-top: 10%">
+      Delete Category
+    </button>
+
+    <script src="../js/main.js"></script>
+  </body>
+</html>
