@@ -1,8 +1,21 @@
 const dbQueries = require("../db/queries");
 
 async function createItem(name, quantity, price, categoryId) {
-  let creationResult = dbQueries.createItem(name, quantity, price, categoryId);
-  return creationResult;
+  let itemId = await dbQueries.getItemId(name);
+  itemId = itemId.rows[0]?.id || false;
+  if (itemId === false) {
+    let creationResult = await dbQueries.createItem(
+      name,
+      quantity,
+      price,
+      categoryId,
+    );
+    let itemId = await dbQueries.getItemId(name);
+    itemId = itemId.rows[0].id;
+    return itemId;
+  } else {
+    return false;
+  }
 }
 
 async function getItem(itemId) {
