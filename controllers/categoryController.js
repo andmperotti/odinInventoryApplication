@@ -11,12 +11,20 @@ async function getCategories() {
   return categories;
 }
 
-// async function createCategory(){
+async function createCategory(categoryName) {
+  //if the category does not exist, make it and return the categoryId, otherwise return false because it exists
+  let categoryCheck = await dbQueries.checkCategory(categoryName);
+  if (!categoryCheck) {
+    await dbQueries.createCategory(categoryName);
+    let categoryId = await dbQueries.getCategoryId(categoryName);
+    return categoryId;
+  } else {
+    return false;
+  }
+}
 
+// async function deleteCategory(categoryID) {
+//   await dbQueries.deleteCategory(categoryID);
 // }
 
-// async function deleteCategory(categoryID){
-
-// }
-
-module.exports = { getCategoryItems, getCategories };
+module.exports = { getCategoryItems, getCategories, createCategory };
