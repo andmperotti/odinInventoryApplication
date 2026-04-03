@@ -14,13 +14,17 @@ itemRouter.get("/:itemId", async (req, res) => {
 });
 
 itemRouter.post("/createItem", async (req, res) => {
-  let creationResult = await itemController.createItem(
+  let itemCreationAttempt = await itemController.createItem(
     req.body.itemName,
     req.body.itemQuantity,
     req.body.itemPrice,
-    req.body.itemCategoryIds,
+    req.body.itemCategoryId,
   );
-  res.redirect(`/items/${creationResult.itemId.rows[0].id}`);
+  if (itemCreationAttempt != false) {
+    res.redirect(`/items/${itemCreationAttempt}`);
+  } else {
+    res.send("Item already exists");
+  }
 });
 
 itemRouter.post("/updateItem/:itemId", async (req, res) => {
@@ -29,7 +33,7 @@ itemRouter.post("/updateItem/:itemId", async (req, res) => {
     req.body.itemName,
     req.body.itemQuantity,
     req.body.itemPrice,
-    req.body.itemCategoryIds,
+    req.body.itemCategoryId,
   );
   let itemId = req.params.itemId;
   res.redirect(`/items/${itemId}`);
