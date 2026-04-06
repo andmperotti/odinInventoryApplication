@@ -23,7 +23,7 @@
       >Categories:
       <select name="itemCategoryIds" id="category-select"  required >
         <%categories.rows.forEach(category=>{ %>
-          <option value="<%=category.id%>">
+          <option value="<%=category.id%>" <%=category.id==item.categoryId ? 'selected':''%>>
             <%=category.name%>
           </option>
         <%})%>
@@ -31,10 +31,13 @@
     </label>
     <button style="display: block; margin-top: 1%">Update</button>
     </form>
-    <button
-      style="background-color: red; display: block; margin-top: 10%">
-      DELETE ITEM
-    </button>
+    
+    <form action="/items/deleteItem/<%=item.id%>" method="post"  >
+      <button
+        style="background-color: red; display: block; margin-top: 10%">
+        DELETE ITEM
+      </button>
+    </form>
 
     <script src="../js/main.js"></script>
   </body>
