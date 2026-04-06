@@ -15,14 +15,15 @@ async function getCategoryName(categoryId) {
 async function deleteCategory(categoryId) {
   let values = [categoryId];
   let deleteAttempt = await pool.query(
-    `DELETE * FROM categories WHERE categories.id = $1`,
+    `DELETE FROM categories WHERE categories.id = $1`,
     values,
   );
   //change to remove items that are associated with it as well
   let deleteCategoryItems = pool.query(
-    "SELECT * FROM items WHERE categoryId = $1",
+    "DELETE FROM items WHERE categoryId = $1",
     values,
   );
+  return (deleteAttempt.rowCount = 1 ? true : false);
 }
 
 async function getCategoryItems(categoryId) {

@@ -22,7 +22,7 @@
     <%}%>
     <form method="get" action="/category/editCategory/<%=categoryId%>"><button style="display: block;">Edit Category </button></form>
     <form method="get" action="/items/createItem?categoryId=<%=categoryId%>">   <button style="display: block;">Add item</button></form>
-    <form method="post" action="/category/deleteCategory"><button style="background-color: red; display: block; margin-top: 10%;">Delete category</button></form>
+    <form method="post" action="/category/deleteCategory/<%=categoryId%>"><button style="background-color: red; display: block; margin-top: 10%;">Delete category</button></form>
 
     <script src="../js/main.js"></script>
   </body>

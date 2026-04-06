@@ -23,8 +23,13 @@ async function createCategory(categoryName) {
   }
 }
 
-// async function deleteCategory(categoryID) {
-//   await dbQueries.deleteCategory(categoryID);
-// }
+async function deleteCategory(categoryID) {
+  return await dbQueries.deleteCategory(categoryID);
+}
 
-module.exports = { getCategoryItems, getCategories, createCategory };
+module.exports = {
+  getCategoryItems,
+  getCategories,
+  createCategory,
+  deleteCategory,
+};

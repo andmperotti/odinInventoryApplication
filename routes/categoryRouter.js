@@ -24,4 +24,15 @@ categoryRouter.post("/create", async (req, res) => {
   }
 });
 
+categoryRouter.post("/deleteCategory/:categoryId", async (req, res) => {
+  let categoryId = req.params.categoryId;
+  let categoryDeletionResult =
+    await categoryController.deleteCategory(categoryId);
+  if (categoryDeletionResult === true) {
+    res.redirect("/");
+  } else {
+    res.send("Couldn't delete that category");
+  }
+});
+
 module.exports = { categoryRouter };
