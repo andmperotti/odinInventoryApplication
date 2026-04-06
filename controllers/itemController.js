@@ -44,4 +44,9 @@ async function updateItem(
   );
 }
 
-module.exports = { getItem, getCategories, updateItem, createItem };
+async function deleteItem(itemId) {
+  let deleteItemAttempt = await dbQueries.deleteItem(itemId);
+  return deleteItemAttempt;
+}
+
+module.exports = { getItem, getCategories, updateItem, createItem, deleteItem };

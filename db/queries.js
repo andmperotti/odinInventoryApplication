@@ -45,10 +45,10 @@ async function getItemId(itemName) {
   return itemId;
 }
 
-async function deleteItem(itemName) {
-  let values = [itemName];
+async function deleteItem(itemId) {
+  let values = [itemId];
   let deleteResult = await pool.query(
-    `DELETE FROM items WHERE name = $1`,
+    `DELETE FROM items WHERE id = $1`,
     values,
   );
   return deleteResult;

@@ -39,8 +39,9 @@ itemRouter.post("/updateItem/:itemId", async (req, res) => {
   res.redirect(`/items/${itemId}`);
 });
 
-itemRouter.delete("/:itemId", async (req, res) => {
-  res.send("item deleted");
+itemRouter.post("/deleteItem/:itemId", async (req, res) => {
+  let deleteItemAttempt = await itemController.deleteItem(req.params.itemId);
+  res.send(deleteItemAttempt);
 });
 
 module.exports = { itemRouter };
