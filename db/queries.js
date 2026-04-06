@@ -1,7 +1,6 @@
 const pool = require("./pool");
 
 async function getCategories() {
-  //query for all category records, so we get back id and name
   let categories = await pool.query("SELECT * FROM categories ");
   return categories;
 }
@@ -14,17 +13,21 @@ async function getCategoryName(categoryId) {
 }
 
 async function deleteCategory(categoryId) {
+  let values = [categoryId];
   let deleteAttempt = await pool.query(
-    `DELETE * FROM categories WHERE categories.id = ${categoryId}`,
+    `DELETE * FROM categories WHERE categories.id = $1`,
+    values,
   );
-  //if successful return true?
-  //otherwise return false?
+  //change to remove items that are associated with it as well
+  let deleteCategoryItems = pool.query(
+    "SELECT * FROM items WHERE categoryId = $1",
+    values,
+  );
 }
 
-//get items of a specific category
 async function getCategoryItems(categoryId) {
   let items = await pool.query(
-    `SELECT * FROM items WHERE items.categoryIds LIKE '%${categoryId}%'`,
+    `SELECT * FROM items WHERE items.categoryId = ${categoryId}`,
   );
   return items;
 }
@@ -41,15 +44,10 @@ async function getItemId(itemName) {
   return itemId;
 }
 
-async function getAllItems() {
-  let items = await pool.query("SELECT * FROM items");
-  return items;
-}
-
-async function deleteItem(itemId) {
-  let values = [itemId];
+async function deleteItem(itemName) {
+  let values = [itemName];
   let deleteResult = await pool.query(
-    `DELETE FROM items WHERE items.id = $1`,
+    `DELETE FROM items WHERE name = $1`,
     values,
   );
   return deleteResult;
@@ -60,38 +58,62 @@ async function updatedItem(
   newName,
   newQuantity,
   newPrice,
-  newCategoryIds,
+  newCategoryId,
 ) {
   let values = [...arguments];
   let updatedItem = await pool.query(
     `
-    UPDATE items SET name=$2, price=$4, quantity=$3, categoryIds=$5 WHERE id=$1
+    UPDATE items SET name=$2, price=$4, quantity=$3, categoryId=$5 WHERE id=$1
      `,
     values,
   );
 }
 
-async function createItem(name, quantity, price, categoryIds) {
-  //check if a record already exists (using the name value)
-  //
-  //if it does not already exist create it:
-  let values = [name, quantity, price, categoryIds];
+async function createItem(name, quantity, price, categoryId) {
+  let values = [name, quantity, price, categoryId];
   let creationResult = await pool.query(
-    "INSERT INTO items (name, quantity, price, categoryids) VALUES ($1, $2, $3, $4)",
+    "INSERT INTO items (name, quantity, price, categoryId) VALUES ($1, $2, $3, $4)",
     values,
   );
-  //obtain the id value so we can redirect the user to the item page upon completion of creation
-  creationResult.itemId = await getItemId(name);
-  return creationResult;
+}
+
+async function createCategory(categoryName) {
+  let values = [categoryName];
+  let categoryCreation = await pool.query(
+    `INSERT INTO categories (name) VALUES($1)`,
+    values,
+  );
+  return categoryCreation;
+}
+
+async function getCategoryId(categoryName) {
+  let values = [categoryName];
+  let queryResult = await pool.query(
+    "SELECT id FROM categories WHERE name = $1",
+    values,
+  );
+  return queryResult.rows[0].id;
+}
+
+async function checkCategory(categoryName) {
+  let values = [categoryName];
+  let result = await pool.query(
+    "SELECT name FROM categories WHERE name=$1",
+    values,
+  );
+  return result.rows[0];
 }
 
 module.exports = {
   getCategories,
   getCategoryName,
-  deleteCategory,
+  getCategoryId,
   getCategoryItems,
+  checkCategory,
+  createCategory,
+  deleteCategory,
   getItem,
-  getAllItems,
+  getItemId,
   deleteItem,
   updatedItem,
   createItem,
