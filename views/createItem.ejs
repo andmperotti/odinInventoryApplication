@@ -21,7 +21,7 @@
     </label>
     <label
       >Categories:
-      <select name="itemCategoryIds" id="category-select"  required >
+      <select name="itemCategoryId" id="category-select"  required >
         <%categories.rows.forEach(category=>{ %>
           <option value="<%=category.id%>">
             <%=category.name%>
@@ -32,10 +32,6 @@
     </label>
     <button style="display: block; margin-top: 1%">Create Item</button>
     </form>
-    <button
-      style="background-color: red; display: block; margin-top: 10%">
-      DELETE ITEM
-    </button>
 
     <script src="../js/main.js"></script>
   </body>
