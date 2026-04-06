@@ -35,4 +35,23 @@ categoryRouter.post("/deleteCategory/:categoryId", async (req, res) => {
   }
 });
 
+categoryRouter.get("/editCategory/:categoryId", async (req, res) => {
+  let categoryId = req.params.categoryId;
+  let categoryDetails = await categoryController.getCategories(categoryId);
+  let category = categoryDetails.rows[0];
+
+  res.render("editCategory", { category, categoryId });
+});
+
+categoryRouter.post("/editCategory/:categoryId", async (req, res) => {
+  let categoryId = req.params.categoryId;
+  let newCategoryName = req.body.newCategoryName;
+  let editCategoryAttempt = await categoryController.editCategory(
+    categoryId,
+    newCategoryName,
+  );
+  if (editCategoryAttempt.rowCount === 1) {
+    res.redirect(`/category/${categoryId}`);
+  }
+});
 module.exports = { categoryRouter };

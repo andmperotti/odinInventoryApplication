@@ -27,9 +27,18 @@ async function deleteCategory(categoryID) {
   return await dbQueries.deleteCategory(categoryID);
 }
 
+async function editCategory(categoryId, newCategoryName) {
+  let editCategoryAttempt = await dbQueries.editCategory(
+    categoryId,
+    newCategoryName,
+  );
+  return editCategoryAttempt;
+}
+
 module.exports = {
   getCategoryItems,
   getCategories,
   createCategory,
   deleteCategory,
+  editCategory,
 };

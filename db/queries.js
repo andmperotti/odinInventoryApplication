@@ -105,6 +105,14 @@ async function checkCategory(categoryName) {
   return result.rows[0];
 }
 
+async function editCategory(categoryId, newCategoryName) {
+  let values = [categoryId, newCategoryName];
+  return await pool.query(
+    "UPDATE categories SET name = $2 WHERE id = $1",
+    values,
+  );
+}
+
 module.exports = {
   getCategories,
   getCategoryName,
@@ -113,6 +121,7 @@ module.exports = {
   checkCategory,
   createCategory,
   deleteCategory,
+  editCategory,
   getItem,
   getItemId,
   deleteItem,
