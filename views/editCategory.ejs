@@ -7,6 +7,7 @@
   </head>
   <body>
     <h1>Edit <%=category.name%> Category</h1>
+    <a href="/" style="margin-bottom: 2vh; display: block">Homepage</a>
     <form method="post" action="/category/editCategory/<%=categoryId%>">
       <label
         >Name:
@@ -15,6 +16,7 @@
           min="1"
           value="<%=category.name%>"
           name="newCategoryName"
+          style="display: block"
         />
         <button>Update</button>
       </label>
