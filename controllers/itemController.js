@@ -1,6 +1,14 @@
 const dbQueries = require("../db/queries");
+const { body, validationResult, matchedData } = require("express-validator");
 
+const validateItem = [
+  body("name").trim().isAlphanumeric().notEmpty(),
+  body("quantity").trim().isNumeric().notEmpty(),
+  body("price").trim().isNumeric().notEmpty(),
+  body("categoryId").trim().isNumeric().notEmpty(),
+];
 async function createItem(name, quantity, price, categoryId) {
+  validateItem;
   let itemId = await dbQueries.getItemId(name);
   itemId = itemId.rows[0]?.id || false;
   if (itemId === false) {
@@ -35,6 +43,7 @@ async function updateItem(
   newPrice,
   newCategoryId,
 ) {
+  validateItem;
   let updateResult = await dbQueries.updatedItem(
     itemId,
     newName,

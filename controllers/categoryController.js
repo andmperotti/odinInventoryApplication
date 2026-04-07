@@ -1,4 +1,9 @@
 const dbQueries = require("../db/queries");
+const { body, validationResult, matchedData } = require("express-validator");
+
+const validateCategory = [
+  body("categoryName").trim().isLength({ min: 1 }).isAlpha(),
+];
 
 async function getCategoryItems(categoryId) {
   let items = await dbQueries.getCategoryItems(categoryId);
@@ -12,6 +17,7 @@ async function getCategories() {
 }
 
 async function createCategory(categoryName) {
+  validateCategory;
   //if the category does not exist, make it and return the categoryId, otherwise return false because it exists
   let categoryCheck = await dbQueries.checkCategory(categoryName);
   if (!categoryCheck) {
@@ -28,6 +34,7 @@ async function deleteCategory(categoryID) {
 }
 
 async function editCategory(categoryId, newCategoryName) {
+  validateCategory;
   let editCategoryAttempt = await dbQueries.editCategory(
     categoryId,
     newCategoryName,
