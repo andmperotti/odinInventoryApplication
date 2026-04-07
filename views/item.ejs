@@ -23,7 +23,7 @@
       >Categories:
       <select name="itemCategoryIds" id="category-select"  required >
         <%categories.rows.forEach(category=>{ %>
-          <option value="<%=category.id%>" <%=category.id==item.categoryId ? 'selected':''%>>
+          <option value="<%=category.id%>" <%=category.id===item.categoryId ? 'selected':''%>>
             <%=category.name%>
           </option>
         <%})%>

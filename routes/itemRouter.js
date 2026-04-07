@@ -3,8 +3,10 @@ const itemRouter = Router();
 let itemController = require("../controllers/itemController");
 
 itemRouter.get("/createItem", async (req, res) => {
+  let categoryId = req.query.categoryId;
+
   let categories = await itemController.getCategories();
-  res.render("createItem", { categories });
+  res.render("createItem", { categories, categoryId });
 });
 
 itemRouter.get("/:itemId", async (req, res) => {
