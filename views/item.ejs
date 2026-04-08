@@ -21,9 +21,9 @@
     </label>
     <label
       >Categories:
-      <select name="itemCategoryIds" id="category-select"  required >
-        <%categories.rows.forEach(category=>{ %>
-          <option value="<%=category.id%>" <%=category.id===item.categoryId ? 'selected':''%>>
+      <select name="itemCategoryId" id="category-select" required >
+        <%categories.rows.sort((a,b)=>a.id-b.id).forEach(category=>{ %>
+          <option value="<%=category.id%>" <%=category.id===item.categoryid ? 'selected' : ''%> >
             <%=category.name%>
           </option>
         <%})%>
@@ -31,7 +31,6 @@
     </label>
     <button style="display: block; margin-top: 1%">Update</button>
     </form>
-    
     <form action="/items/deleteItem/<%=item.id%>" method="post"  >
       <button
         style="background-color: red; display: block; margin-top: 10%">

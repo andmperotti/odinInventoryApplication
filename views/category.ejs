@@ -13,7 +13,7 @@
         <ul><h3>Items:</h3>
             <%items.rows.forEach(item=>{%>
                 <li style="list-style: none;">
-                    <a href="/items/<%=item.id%>"><%=item.name%></a>
+                    <a href="/items/<%=item.id%>?categoryId=<%=categoryId%>"><%=item.name%></a>
                 </li>
             <%})%>
         </ul>

@@ -22,7 +22,7 @@
     <label
       >Categories:
       <select name="itemCategoryId" id="category-select"  required >
-        <%categories.rows.forEach(category=>{ %>
+        <%categories.rows.sort((a,b)=>a.id-b.id).forEach(category=>{ %>
           <option value="<%=category.id%>" <%=category.id==categoryId ? "selected": "" %>>
             <%=category.name%>
           </option>
