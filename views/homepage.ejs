@@ -10,7 +10,7 @@
     <h2>Categories:</h2>
     <% if(categories.rows.length>0){%>
         <ul>
-            <% categories.rows.forEach((row)=>{ %>
+            <% categories.rows.sort((a,b)=>a.id-b.id).forEach((row)=>{ %>
                 <li style="list-style: none;">
                     <a href="/category/<%=row.id%>"><%=row.name%></a>
                 </li>
