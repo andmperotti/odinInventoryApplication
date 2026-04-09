@@ -2,60 +2,80 @@ const dbQueries = require("../db/queries");
 const { body, validationResult, matchedData } = require("express-validator");
 
 const validateItem = [
-  body("name").trim().isAlphanumeric().notEmpty(),
-  body("quantity").trim().isNumeric().notEmpty(),
-  body("price").trim().isNumeric().notEmpty(),
-  body("categoryId").trim().isNumeric().notEmpty(),
+  body("itemName").trim().isAlphanumeric().notEmpty(),
+  body("itemQuantity").trim().isNumeric().notEmpty(),
+  body("itemPrice").trim().isNumeric().notEmpty(),
+  body("itemCategoryId").trim().isNumeric().notEmpty(),
 ];
-async function createItem(name, quantity, price, categoryId) {
-  validateItem;
-  let itemId = await dbQueries.getItemId(name);
-  itemId = itemId.rows[0]?.id || false;
-  if (itemId === false) {
-    let creationResult = await dbQueries.createItem(
-      name,
-      quantity,
-      price,
-      categoryId,
-    );
-    let itemId = await dbQueries.getItemId(name);
-    itemId = itemId.rows[0].id;
-    return itemId;
-  } else {
-    return false;
-  }
-}
 
-async function getItem(itemId) {
-  let item = await dbQueries.getItem(itemId);
-  return item;
-}
-
-async function getCategories() {
+exports.getItem = async (req, res) => {
+  let item = await dbQueries.getItem(req.params.itemId);
   let categories = await dbQueries.getCategories();
-  return categories;
-}
+  let categoryId = +req.query.categoryId;
+  res.render("item", { item, categories, categoryId });
+};
 
-async function updateItem(
-  itemId,
-  newName,
-  newQuantity,
-  newPrice,
-  newCategoryId,
-) {
-  validateItem;
-  let updateResult = await dbQueries.updatedItem(
-    itemId,
-    newName,
-    newQuantity,
-    newPrice,
-    newCategoryId,
-  );
-}
+exports.getCreateItemPage = async (req, res) => {
+  let categoryId = req.query.categoryId;
+  let categories = await dbQueries.getCategories();
+  res.render("createItem", { categories, categoryId });
+};
 
-async function deleteItem(itemId) {
-  let deleteItemAttempt = await dbQueries.deleteItem(itemId);
-  return deleteItemAttempt;
-}
+exports.createItem = [
+  validateItem,
+  async (req, res) => {
+    let errors = validationResult(req);
+    //check if this itemName is already taken, giving back the itemid or false
+    let itemRequest = await dbQueries.getItemId(req.body.itemName);
+    let itemId = itemRequest.rows[0]?.id || false;
+    if (!errors.isEmpty()) {
+      return res.status(400).send({
+        errors: errors.array(),
+      });
+    } else {
+      //if it's false then it has not been taken
+      if (itemId === false) {
+        //create item
+        let itemCreationAttempt = await dbQueries.createItem(
+          req.body.itemName,
+          req.body.itemQuantity,
+          req.body.itemPrice,
+          req.body.itemCategoryId,
+        );
+        //now make sure item was made, and reroute user to that item page for it
+        let itemRequest = await dbQueries.getItemId(req.body.itemName);
+        let itemId = itemRequest.rows[0].id;
+        res.redirect(`/items/${itemId}`);
+      } else {
+        res.send("Item already exists");
+      }
+    }
+  },
+];
 
-module.exports = { getItem, getCategories, updateItem, createItem, deleteItem };
+exports.updateItem = [
+  validateItem,
+  async (req, res) => {
+    let errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).send({
+        errors: errors.array(),
+      });
+    } else {
+      let updateResult = await dbQueries.updateItem(
+        req.params.itemId,
+        req.body.itemName,
+        req.body.itemQuantity,
+        req.body.itemPrice,
+        req.body.itemCategoryId,
+      );
+      let itemId = req.params.itemId;
+      res.redirect(`/items/${itemId}`);
+    }
+  },
+];
+
+exports.deleteItem = async (req, res) => {
+  let deleteItemAttempt = await dbQueries.deleteItem(req.body.itemId);
+  res.redirect("/");
+};
