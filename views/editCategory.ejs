@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Edit Category</title>
+    <title>Edit <%=category%></title>
   </head>
   <body>
-    <h1>Edit <%=category.name%> Category</h1>
+    <h1>Edit <%=category%> Category</h1>
     <a href="/" style="margin-bottom: 2vh; display: block">Homepage</a>
     <form method="post" action="/category/editCategory/<%=categoryId%>">
       <label
@@ -15,7 +15,7 @@
           required
           min="1"
           value="<%=category%>"
-          name="newCategoryName"
+          name="categoryName"
           style="display: block"
         />
         <button>Update</button>
