@@ -54,7 +54,7 @@ async function deleteItem(itemId) {
   return deleteResult;
 }
 
-async function updatedItem(
+async function updateItem(
   itemId,
   newName,
   newQuantity,
@@ -125,6 +125,6 @@ module.exports = {
   getItem,
   getItemId,
   deleteItem,
-  updatedItem,
+  updateItem,
   createItem,
 };
