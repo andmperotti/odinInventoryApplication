@@ -1,9 +1,8 @@
 const { Router } = require("express");
 const indexRouter = Router();
 const dbQueries = require("../db/queries");
+const indexController = require("../controllers/indexController");
 
-indexRouter.get("/", async (req, res) => {
-  let categories = await dbQueries.getCategories();
-  res.render("homepage", { categories });
-});
+indexRouter.get("/", indexController.getCategories);
+
 module.exports = { indexRouter };
