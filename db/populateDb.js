@@ -21,11 +21,7 @@ async function main() {
   console.log("seeding...");
   const client = new Client({
     // connectionString: process.env.local_connection_string,
-    host: process.env.host,
-    user: process.env.user,
-    database: process.env.database,
-    password: process.env.password,
-    port: process.env.port,
+    connectionString: process.env.remote_connection_string,
   });
   //if you wanted to pass the db location when executing this script then you would access that argument to the script in the above line using process.argv
   await client.connect();
