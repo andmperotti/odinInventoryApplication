@@ -9,19 +9,23 @@ CREATE TABLE IF NOT EXISTS public.categories (
   name TEXT 
 );
 
-INSERT INTO categories (name) VALUES ('shorts');
+INSERT INTO categories (name)
+SELECT 'shorts'
+WHERE NOT EXISTS (SELECT 1 FROM categories);
 
 CREATE TABLE IF NOT EXISTS public.items (
 id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY, name TEXT, quantity INTEGER, price INTEGER, categoryId INTEGER);
 
-INSERT INTO items (name, quantity, price, categoryId) VALUES ('wubby', 8, 100, 1);
+INSERT INTO items (name, quantity, price, categoryId)
+SELECT 'wubby', 8, 100, 1
+WHERE NOT EXISTS (SELECT 1 FROM items);
 `;
 
 async function main() {
   console.log("seeding...");
   const client = new Client({
-    // connectionString: process.env.local_connection_string,
-    connectionString: process.env.remote_connection_string,
+    connectionString: process.env.local_connection_string,
+    // connectionString: process.env.remote_connection_string,
   });
   //if you wanted to pass the db location when executing this script then you would access that argument to the script in the above line using process.argv
   await client.connect();
