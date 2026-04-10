@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "node --watch --env-file=.env app.js",
-    "build": "node app.js",
-    "populate": "node db/populateDb.js"
+    "build": "node --env-file=.env app.js",
+    "populate": "node db/populateDb.js",
+    "start": "node app.js"
   },
   "keywords": [],
   "author": "",
