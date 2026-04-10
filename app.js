@@ -18,4 +18,4 @@ app.use("/", indexRouter);
 app.use("/category", categoryRouter);
 app.use("/items", itemRouter);
 
-app.listen(3002);
+app.listen(process.env.PORT);
