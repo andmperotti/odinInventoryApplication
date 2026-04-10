@@ -24,10 +24,9 @@ WHERE NOT EXISTS (SELECT 1 FROM items);
 async function main() {
   console.log("seeding...");
   const client = new Client({
-    connectionString: process.env.local_connection_string,
-    // connectionString: process.env.remote_connection_string,
+    // connectionString: process.env.local_connection_string,
+    connectionString: process.env.remote_connection_string,
   });
-  //if you wanted to pass the db location when executing this script then you would access that argument to the script in the above line using process.argv
   await client.connect();
   await client.query(SQL);
   await client.end();
