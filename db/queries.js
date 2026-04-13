@@ -8,7 +8,7 @@ async function getCategories() {
 async function getCategoryName(categoryId) {
   let values = [categoryId];
   let category = await pool.query(
-    `SELECT * FROM categories WHERE categories.id = $1`,
+    `SELECT * FROM categories WHERE id = $1`,
     values,
   );
   return category.rows[0].name;
@@ -17,7 +17,7 @@ async function getCategoryName(categoryId) {
 async function deleteCategory(categoryId) {
   let values = [categoryId];
   let deleteAttempt = await pool.query(
-    `DELETE FROM categories WHERE categories.id = $1`,
+    `DELETE FROM categories WHERE id = $1`,
     values,
   );
   //change to remove items that are associated with it as well
