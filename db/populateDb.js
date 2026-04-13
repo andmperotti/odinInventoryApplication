@@ -24,7 +24,6 @@ WHERE NOT EXISTS (SELECT 1 FROM items);
 async function main() {
   console.log("seeding...");
   const client = new Client({
-    // connectionString: process.env.local_connection_string,
     connectionString: process.env.remote_connection_string,
   });
   await client.connect();
