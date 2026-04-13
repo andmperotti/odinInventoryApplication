@@ -6,8 +6,10 @@ async function getCategories() {
 }
 
 async function getCategoryName(categoryId) {
+  let values = [categoryId];
   let category = await pool.query(
-    `SELECT * FROM categories WHERE categories.id = ${categoryId}`,
+    `SELECT * FROM categories WHERE categories.id = $1`,
+    values,
   );
   return category.rows[0].name;
 }
@@ -27,8 +29,10 @@ async function deleteCategory(categoryId) {
 }
 
 async function getCategoryItems(categoryId) {
+  let values = [categoryId];
   let items = await pool.query(
-    `SELECT * FROM items WHERE items.categoryId = ${categoryId}`,
+    `SELECT * FROM items WHERE items.categoryId = $1`,
+    values,
   );
   return items;
 }
