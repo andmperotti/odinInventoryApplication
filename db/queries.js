@@ -31,7 +31,7 @@ async function deleteCategory(categoryId) {
 async function getCategoryItems(categoryId) {
   let values = [categoryId];
   let items = await pool.query(
-    `SELECT * FROM items WHERE items.categoryId = $1`,
+    `SELECT * FROM items WHERE categoryId = $1`,
     values,
   );
   return items;
