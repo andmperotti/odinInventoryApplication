@@ -18,4 +18,12 @@ app.use("/", indexRouter);
 app.use("/category", categoryRouter);
 app.use("/items", itemRouter);
 
-app.listen(process.env.PORT);
+app.listen(process.env.PORT, async () => {
+  try {
+    const { main } = require("./db/populateDb"); // Export your main function
+    await main();
+    console.log("Database seeded successfully on startup.");
+  } catch (err) {
+    console.error("Seeding failed, but server is still running:", err);
+  }
+});

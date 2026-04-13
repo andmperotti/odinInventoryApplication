@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "node --watch --env-file=.env app.js",
     "populate": "node db/populateDb.js",
-    "prestart": "npm run populate",
     "start": "node app.js"
   },
   "keywords": [],
